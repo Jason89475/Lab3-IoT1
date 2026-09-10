@@ -1,32 +1,16 @@
 #include <Arduino.h>  
 
- 
-
-uint8_t value; 
-
- 
+ uint8_t value; 
 
 void setup(){ 
 
   // configure PD7_PD4 as inputs(0x0F) 
-
-  DDRD = DDRD & 0x0F; 
-
- 
-
-  //enable input pullup (0xF0) 
-
+  DDRD &= 0x0F; 
   PORTD |= 0xF0; 
-
- 
-
   //configure PB3_PB0 (0x0F) 
+  DDRB &= 0x0F; 
 
-  DDRB = DDRB & 0x0F; 
-
- 
-
- Serial.begin (9600); 
+ Serial.begin(9600);
 
 } 
 
@@ -40,7 +24,7 @@ void loop(){
 
   //mask the values(0xF0) 
 
-  value = value & 0xF0; 
+  value &= 0xF0; 
 
   // Shift right value >>4 
 
@@ -48,11 +32,10 @@ void loop(){
 
   //invert the values 
 
-  value = ~value; 
-
-  //mask value(0x0F) 
-
-  value = value & 0x0F; 
+ value = ~ value;
+ value &= 0x0F;
+ value = ~ value +1;
+ value &= 0x0F;
 
   //Display in LED 
 
@@ -68,4 +51,4 @@ void loop(){
 
   delay(1000); 
 
-} 
+}
